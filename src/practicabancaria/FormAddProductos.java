@@ -171,14 +171,14 @@ public class FormAddProductos extends javax.swing.JFrame {
         //Revista revista = new Revista();
         //revista.setTitulo(txtTitulo.getText());
         //revista.setIssn(txtIssn.getText());
-        ArrayList<Producto> listaProductos = new ArrayList<Producto>();
+        ArrayList<Prod> listaProductos = new ArrayList<Prod>();
         for (int i=0; i<tblArticulos.getRowCount(); i++) {
             //Producto  a = new Producto();
            // a.setTitulo((String)tblArticulos.getValueAt(i, 0));
             //a.setAutor((String)tblArticulos.getValueAt(i, 1));
             //a.setNumPaginas((int)tblArticulos.getValueAt(i, 2));
-            
-            listaProductos.add((Producto)tblArticulos.getValueAt(i, 0));
+            Prod pr = new Prod((Producto)tblArticulos.getValueAt(i, 0));
+            listaProductos.add(pr);
             //revista.getArticulos().add(a);
            
         }
@@ -242,10 +242,15 @@ public class FormAddProductos extends javax.swing.JFrame {
         
         DefaultTableModel tm = (DefaultTableModel)tblArticulos.getModel();
         
-        Iterator<Producto> it = this.cliente.getListaProductos().iterator();
+        /*Iterator<Prod> it = this.cliente.getListaProductos().iterator();
         while (it.hasNext()) {
             Object[] rowData = new Object[1];
             rowData[0] = it.next();
+            tm.addRow(rowData);
+        }*/
+        for(int i=0;i<this.cliente.getListaProductos().size();i++){
+            Object[] rowData = new Object[1];
+            rowData[0] = this.cliente.getListaProductos().get(i).getProd();
             tm.addRow(rowData);
         }
     }

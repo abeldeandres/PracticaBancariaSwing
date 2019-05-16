@@ -17,6 +17,8 @@ public class Prod {
 
     public Prod(Producto prod) {
         this.prod = prod;
+        this.mensaje="";
+        this.tipoMensaje="";
     }
     
     

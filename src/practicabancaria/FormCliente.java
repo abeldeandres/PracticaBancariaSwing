@@ -227,10 +227,11 @@ public class FormCliente extends javax.swing.JFrame {
     private void btnEnviarMensajeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEnviarMensajeMouseClicked
         // TODO add your handling code here:
         String enviar="Enviando mensaje a "+ this.clienteCreado.getNombre() + "\n que usa la comunicacion "+clienteCreado.getComunicacion();
-        for(int i=0; i<clienteCreado.getListaMensajes().size();i++){
-            enviar+="\n Tipo de mensaje "+clienteCreado.getListaTipoMensaje().get(i).toString();
+        for(int i=0; i<clienteCreado.getListaProductos().size();i++){
+            enviar+="\n Producto: "+clienteCreado.getListaProductos().get(i).getProd().toString();
+            enviar+="\n Tipo de mensaje: "+clienteCreado.getListaProductos().get(i).getTipoMensaje();
             enviar+="\n MENSAJE: \n";
-            enviar+=clienteCreado.getListaMensajes().get(i).toString();
+            enviar+=clienteCreado.getListaProductos().get(i).getMensaje();
         }
 
 

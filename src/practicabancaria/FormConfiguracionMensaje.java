@@ -43,7 +43,7 @@ public class FormConfiguracionMensaje extends javax.swing.JFrame {
         cbxTipoMensaje = new javax.swing.JComboBox();
         btnGuardarConfiguracion = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        cbxProductos = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,7 +66,7 @@ public class FormConfiguracionMensaje extends javax.swing.JFrame {
 
         jLabel3.setText("Productos");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(cliente.productosToString()));
+        cbxProductos.setModel(new DefaultComboBoxModel(Producto.values()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,7 +88,7 @@ public class FormConfiguracionMensaje extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbxTipoMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cbxProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -105,7 +105,7 @@ public class FormConfiguracionMensaje extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(btnGuardarConfiguracion)
                 .addGap(35, 35, 35))
@@ -117,9 +117,13 @@ public class FormConfiguracionMensaje extends javax.swing.JFrame {
     private void btnGuardarConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarConfiguracionMouseClicked
         // TODO add your handling code here:
         //this.cliente.setMensaje(txtMensaje.getText());
-        this.cliente.aniadirMensaje(txtMensaje.getText());
-        this.cliente.aniadirTipoMensaje(cbxTipoMensaje.getSelectedItem().toString());
-        //this.cliente.setTipoMensaje(cbxTipoMensaje.getSelectedItem().toString());
+
+        for(int i=0;i<this.cliente.getListaProductos().size();i++){
+            if(this.cliente.getListaProductos().get(i).getProd().equals(this.cbxProductos.getSelectedItem())){
+                this.cliente.getListaProductos().get(i).setMensaje(txtMensaje.getText());
+                this.cliente.getListaProductos().get(i).setTipoMensaje(cbxTipoMensaje.getSelectedItem().toString());
+            }
+        }
         this.dispose();
     }//GEN-LAST:event_btnGuardarConfiguracionMouseClicked
 
@@ -162,8 +166,8 @@ public class FormConfiguracionMensaje extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarConfiguracion;
+    private javax.swing.JComboBox cbxProductos;
     private javax.swing.JComboBox cbxTipoMensaje;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

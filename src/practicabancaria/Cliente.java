@@ -14,38 +14,11 @@ import java.util.ArrayList;
 public class Cliente {
     private String nombre;
     private String dni;
-    private ArrayList<Producto> listaProductos = new ArrayList<Producto>();
+    private ArrayList<Prod> listaProductos = new ArrayList<Prod>();
     private Comunicacion comunicacion;
-    private ArrayList<String> listaMensajes = new ArrayList<String>();
-     private ArrayList<String> listaTipoMensajes = new ArrayList<String>();
-
-    public ArrayList<String> getListaMensajes() {
-        return listaMensajes;
-    }
-
-    public void setListaMensajes(ArrayList<String> listaMensajes) {
-        this.listaMensajes = listaMensajes;
-    }
-
-    public ArrayList<String> getListaTipoMensaje() {
-        return listaTipoMensaje;
-    }
-
-    public void setListaTipoMensaje(ArrayList<String> listaTipoMensaje) {
-        this.listaTipoMensaje = listaTipoMensaje;
-    }
-    private ArrayList<String> listaTipoMensaje = new ArrayList<String>();
 
 
-
-    public String getTipoMensaje() {
-        return tipoMensaje;
-    }
-
-    public void setTipoMensaje(String tipoMensaje) {
-        this.tipoMensaje = tipoMensaje;
-    }
-    private String tipoMensaje;
+    
 
     public Cliente(String nombre, String dni, Comunicacion comunicacion) {
         this.nombre = nombre;
@@ -69,20 +42,20 @@ public class Cliente {
         this.dni = dni;
     }
 
-    public ArrayList<Producto> getListaProductos() {
-        return listaProductos;
-    }
-
-    public void setListaProductos(ArrayList<Producto> listaProductos) {
-        this.listaProductos = listaProductos;
-    }
-
     public Comunicacion getComunicacion() {
         return comunicacion;
     }
 
     public void setComunicacion(Comunicacion comunicacion) {
         this.comunicacion = comunicacion;
+    }
+    
+        public ArrayList<Prod> getListaProductos() {
+        return listaProductos;
+    }
+
+    public void setListaProductos(ArrayList<Prod> listaProductos) {
+        this.listaProductos = listaProductos;
     }
     
     public String[] productosToString(){
@@ -93,10 +66,5 @@ public class Cliente {
      return arrayString;
     }
     
-    public void aniadirMensaje(String mensaje){
-        this.listaMensajes.add(mensaje);
-    }
-    public void aniadirTipoMensaje(String tipomensaje){
-        this.listaTipoMensajes.add(tipomensaje);
-    }
+
 }
