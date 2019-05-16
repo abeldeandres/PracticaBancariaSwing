@@ -10,11 +10,18 @@ import javax.swing.DefaultComboBoxModel;
 
 /**
  *
- * @author cargo
+ * @author Carlos
  */
 public class FormCliente extends javax.swing.JFrame {
     private ArrayList<Cliente> arrayClientes;
     private Cliente clienteCreado=null;
+    private int position;
+    private boolean esModificar=false;
+    
+    private String tipoMensaje="";
+    private String mensaje="";
+    
+    private FormConfiguracionMensaje conf;
     /**
      * Creates new form FormCliente
      */
@@ -26,7 +33,22 @@ public class FormCliente extends javax.swing.JFrame {
         this.arrayClientes=arrayClientes;
         initComponents();
         this.btnListProd.setEnabled(false);
+        this.btnEnviarMensaje.setEnabled(false);
+        this.btnConfiguracion.setEnabled(false);
         txMensaje.setEditable(false);
+    }
+    
+    public FormCliente(ArrayList<Cliente> arrayClientes,int position){
+         this.arrayClientes=arrayClientes;
+         this.esModificar=true;
+        initComponents();
+        //this.biblioteca = biblioteca;
+        this.position = position;
+        
+        Cliente clienteMod = arrayClientes.get(position);
+        txtNombre.setText(clienteMod.getNombre());
+        txtDNI.setText(clienteMod.getDni());
+        clienteCreado=clienteMod;
     }
 
     /**
@@ -43,12 +65,13 @@ public class FormCliente extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtDNI = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         btnListProd = new javax.swing.JButton();
         cbxComunicacion = new javax.swing.JComboBox<String>();
         jScrollPane1 = new javax.swing.JScrollPane();
         txMensaje = new javax.swing.JTextArea();
-        jButton3 = new javax.swing.JButton();
+        btnEnviarMensaje = new javax.swing.JButton();
+        btnConfiguracion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,15 +86,15 @@ public class FormCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Guardar");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGuardar.setText("Guardar");
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                btnGuardarMouseClicked(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
 
@@ -88,10 +111,17 @@ public class FormCliente extends javax.swing.JFrame {
         txMensaje.setRows(5);
         jScrollPane1.setViewportView(txMensaje);
 
-        jButton3.setText("Enviar Mensaje");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnEnviarMensaje.setText("Enviar Mensaje");
+        btnEnviarMensaje.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                btnEnviarMensajeMouseClicked(evt);
+            }
+        });
+
+        btnConfiguracion.setText("Configurar Mensaje");
+        btnConfiguracion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConfiguracionMouseClicked(evt);
             }
         });
 
@@ -115,7 +145,7 @@ public class FormCliente extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jButton1)
                                     .addGap(64, 64, 64)
-                                    .addComponent(jButton2)))
+                                    .addComponent(btnGuardar)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(198, 198, 198)))
@@ -126,15 +156,19 @@ public class FormCliente extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton3)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btnConfiguracion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnEnviarMensaje, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(41, 41, 41))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(btnConfiguracion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -147,11 +181,11 @@ public class FormCliente extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxComunicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                    .addComponent(btnEnviarMensaje))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(btnGuardar)
                     .addComponent(btnListProd))
                 .addGap(35, 35, 35))
         );
@@ -159,17 +193,24 @@ public class FormCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         // TODO add your handling code here:
-        clienteCreado = new Cliente(txtNombre.getText(),txtDNI.getText(), (Comunicacion) cbxComunicacion.getSelectedItem());
-        this.arrayClientes.add(clienteCreado);
+        
+        if(esModificar){
+            arrayClientes.get(position).setDni(txtDNI.getText());
+            arrayClientes.get(position).setNombre(txtNombre.getText());
+            arrayClientes.get(position).setComunicacion((Comunicacion) cbxComunicacion.getSelectedItem());
+        }else{
+            clienteCreado = new Cliente(txtNombre.getText(),txtDNI.getText(), (Comunicacion) cbxComunicacion.getSelectedItem());
+            this.arrayClientes.add(clienteCreado);
+        }
         this.btnListProd.setEnabled(true);
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -180,12 +221,29 @@ public class FormCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         FormAddProductos formProductos = new FormAddProductos(clienteCreado);
         formProductos.setVisible(true);
+        this.btnConfiguracion.setEnabled(true);
     }//GEN-LAST:event_btnListProdActionPerformed
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    private void btnEnviarMensajeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEnviarMensajeMouseClicked
         // TODO add your handling code here:
-         txMensaje.setText("Esto es una prueba");
-    }//GEN-LAST:event_jButton3MouseClicked
+        String enviar="Enviando mensaje a "+ this.clienteCreado.getNombre() + "\n que usa la comunicacion "+clienteCreado.getComunicacion();
+        for(int i=0; i<clienteCreado.getListaMensajes().size();i++){
+            enviar+="\n Tipo de mensaje "+clienteCreado.getListaTipoMensaje().get(i).toString();
+            enviar+="\n MENSAJE: \n";
+            enviar+=clienteCreado.getListaMensajes().get(i).toString();
+        }
+
+
+         txMensaje.setText(enviar);
+    }//GEN-LAST:event_btnEnviarMensajeMouseClicked
+
+    private void btnConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseClicked
+        // TODO add your handling code here:
+        conf = new FormConfiguracionMensaje(clienteCreado);
+        conf.setVisible(true);
+
+        this.btnEnviarMensaje.setEnabled(true);
+    }//GEN-LAST:event_btnConfiguracionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -227,11 +285,12 @@ public class FormCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfiguracion;
+    private javax.swing.JButton btnEnviarMensaje;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnListProd;
     private javax.swing.JComboBox<String> cbxComunicacion;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

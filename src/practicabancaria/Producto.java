@@ -7,7 +7,7 @@ package practicabancaria;
 
 /**
  *
- * @author cargo
+ * @author Carlos
  */
 public enum Producto {
     cuentas_corrientes, 

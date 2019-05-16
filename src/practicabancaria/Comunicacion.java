@@ -7,7 +7,7 @@ package practicabancaria;
 
 /**
  *
- * @author cargo
+ * @author Carlos
  */
 public enum Comunicacion {
     carta_postal,

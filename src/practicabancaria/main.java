@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author cargo
+ * @author Carlos
  */
 public class main extends javax.swing.JFrame {
     public ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();

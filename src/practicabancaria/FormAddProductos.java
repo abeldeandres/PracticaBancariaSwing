@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author abelt
+ * @author Carlos
  */
 public class FormAddProductos extends javax.swing.JFrame {
     private Cliente cliente=null;

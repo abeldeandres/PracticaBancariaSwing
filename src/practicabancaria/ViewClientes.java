@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author abelt
+ * @author Carlos
  */
 public class ViewClientes extends javax.swing.JFrame {
     private ArrayList<Cliente> arrayClientes;
@@ -41,7 +41,7 @@ public class ViewClientes extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
-        btnUpdatePublicacion = new javax.swing.JButton();
+        btnUpdateClientes = new javax.swing.JButton();
         btnDeletePublicacion = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
 
@@ -72,10 +72,10 @@ public class ViewClientes extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblClientes);
 
-        btnUpdatePublicacion.setText("Modificar");
-        btnUpdatePublicacion.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnUpdateClientes.setText("Modificar");
+        btnUpdateClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnUpdatePublicacionMouseClicked(evt);
+                btnUpdateClientesMouseClicked(evt);
             }
         });
 
@@ -103,7 +103,7 @@ public class ViewClientes extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(130, 130, 130)
-                .addComponent(btnUpdatePublicacion)
+                .addComponent(btnUpdateClientes)
                 .addGap(108, 108, 108)
                 .addComponent(btnDeletePublicacion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -118,7 +118,7 @@ public class ViewClientes extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit)
-                    .addComponent(btnUpdatePublicacion)
+                    .addComponent(btnUpdateClientes)
                     .addComponent(btnDeletePublicacion))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -126,20 +126,15 @@ public class ViewClientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUpdatePublicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdatePublicacionMouseClicked
-       /* int position = tblPublicaciones.getSelectedRow();
+    private void btnUpdateClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateClientesMouseClicked
+        int position = tblClientes.getSelectedRow();
         if (position!=-1) {
-            DefaultTableModel dtm = (DefaultTableModel)tblPublicaciones.getModel();
-            TipoPublicacion tipo = (TipoPublicacion)dtm.getValueAt(position, 0);
-            if (tipo==TipoPublicacion.LIBRO) {
-                FormAddLibros form = new FormAddLibros(biblioteca, position);
-                form.setVisible(true);
-            } else {
-                FormAddRevistas form = new FormAddRevistas(biblioteca, position);
-                form.setVisible(true);
-            }
-        }*/
-    }//GEN-LAST:event_btnUpdatePublicacionMouseClicked
+            DefaultTableModel dtm = (DefaultTableModel)tblClientes.getModel();
+            FormCliente form = new FormCliente(arrayClientes,position);
+            form.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnUpdateClientesMouseClicked
 
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
         this.dispose();
@@ -223,7 +218,7 @@ public class ViewClientes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeletePublicacion;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnUpdatePublicacion;
+    private javax.swing.JButton btnUpdateClientes;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblClientes;
     // End of variables declaration//GEN-END:variables
