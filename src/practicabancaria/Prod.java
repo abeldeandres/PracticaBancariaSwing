@@ -7,7 +7,7 @@ package practicabancaria;
 
 /**
  *
- * @author abelt
+ * @author Carlos
  */
 public class Prod {
     
